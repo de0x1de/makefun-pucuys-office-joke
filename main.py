@@ -36,6 +36,11 @@ def validate(text: str) -> None:
         raise ValueError("entry lost its punchline image")
     if not text.endswith("for morale."):
         raise ValueError("entry lost its punchline ending")
+    parts = build_joke().split(" ")
+    if parts[0] != "We" or parts[-1] != "morale.":
+        raise ValueError("entry boundaries drifted from the assembled joke")
+    if text.count(" ") != len(parts) - 1:
+        raise ValueError("entry spacing is not the single-space join")
     encoded = text.encode("utf-8")
     if encoded.decode("utf-8") != text:
         raise ValueError("entry does not round-trip as UTF-8")
