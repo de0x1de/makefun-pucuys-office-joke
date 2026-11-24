@@ -39,6 +39,8 @@ def validate(text: str) -> None:
     parts = build_joke().split(" ")
     if parts[0] != "We" or parts[-1] != "morale.":
         raise ValueError("entry boundaries drifted from the assembled joke")
+    if len(text.split()) != 16:
+        raise ValueError("entry must be exactly 16 words")
     if text.count(" ") != len(parts) - 1:
         raise ValueError("entry spacing is not the single-space join")
     encoded = text.encode("utf-8")
